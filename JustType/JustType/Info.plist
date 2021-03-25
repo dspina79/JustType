@@ -11,7 +11,7 @@
 			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.example.plain-text</string>
+				<string>public.item</string>
 			</array>
 		</dict>
 	</array>
