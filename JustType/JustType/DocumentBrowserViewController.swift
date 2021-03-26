@@ -8,8 +8,9 @@
 import UIKit
 
 
-class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
+class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate, UIViewControllerTransitioningDelegate {
     
+    var transitionController:  UIDocumentBrowserTransitionController?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -72,7 +73,19 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         
         let navController = UINavigationController(rootViewController: documentViewController)
         
+        navController.transitioningDelegate = self
+        transitionController = transitionController(forDocumentAt: documentURL)
+        transitionController?.targetView = documentViewController.textView
+        
         present(navController, animated: true, completion: nil)
+    }
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return transitionController
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return transitionController
     }
 }
 
